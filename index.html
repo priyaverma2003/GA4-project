@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatsLocal | Discover Your Next Favorite Meal</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-524RG7NKC0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-524RG7NKC0');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(102, 126, 234, 0.5));
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-indigo-50">
+
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md shadow-sm p-4">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <h1 class="text-2xl font-extrabold text-indigo-600 tracking-tighter">EatsLocal</h1>
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-700">
+                <a href="#" class="hover:text-indigo-600 transition">Home</a>
+                <a href="#partner" class="hover:text-indigo-600 transition">Partner</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center justify-center text-white overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80"
+                class="w-full h-full object-cover scale-110 animate-[pulse_10s_infinite]" alt="Food">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 animate__animated animate__fadeInUp">
+            <h1 class="text-6xl md:text-8xl font-black mb-4 drop-shadow-2xl">Discover <span
+                    class="text-orange-400">Flavors</span></h1>
+            <p class="text-xl md:text-2xl mb-10 opacity-90 max-w-2xl mx-auto font-light">Find the perfect table for your
+                next culinary adventure.</p>
+
+            <form id="searchForm"
+                class="bg-white p-3 rounded-full flex max-w-3xl mx-auto shadow-2xl transition-transform hover:scale-105">
+                <input type="text" id="cuisineType" placeholder="What are you craving? (Sushi, Pizza...)"
+                    class="flex-grow p-4 rounded-l-full text-gray-800 focus:outline-none px-8 text-lg">
+                <button type="submit"
+                    class="bg-orange-500 hover:bg-orange-600 px-10 py-4 rounded-full font-bold text-lg shadow-lg transition">
+                    Search
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <section id="partner" class="py-24 px-6 gradient-bg">
+        <div class="container mx-auto max-w-5xl">
+            <div
+                class="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row animate__animated animate__fadeIn">
+                <div class="md:w-1/3 bg-orange-400 p-12 text-white flex flex-col justify-center text-center">
+                    <div class="text-6xl mb-4 floating">🍔</div>
+                    <h2 class="text-3xl font-bold">Join Us</h2>
+                    <p class="mt-4 opacity-90">Upload your menu and get discovered.</p>
+                </div>
+
+                <div class="md:w-2/3 p-12 bg-white">
+                    <form id="partnerForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-500 mb-2">Restaurant Name</label>
+                                <input type="text" id="restName"
+                                    class="w-full bg-gray-50 p-4 rounded-2xl focus:ring-4 focus:ring-indigo-100 outline-none"
+                                    placeholder="The Tasty Spoon" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-500 mb-2">Upload Menu</label>
+                                <input type="file" id="menuFile"
+                                    class="w-full text-sm text-gray-400 file:mr-4 file:py-3 file:px-4 file:rounded-full file:border-0 file:bg-indigo-50 file:text-indigo-700">
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-xl hover:bg-indigo-700 transition transform active:scale-95">
+                            Submit Application
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-indigo-300 bg-indigo-900">
+        <p>© 2025 EatsLocal | G-524RG7NKC0 Tracking Active</p>
+    </footer>
+
+    <script>
+        // Track Search Event
+        document.getElementById('searchForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const cuisine = document.getElementById('cuisineType').value;
+            gtag('event', 'restaurant_search', { 'cuisine_type': cuisine });
+            alert('Analytics tracked your search for: ' + cuisine);
+        });
+
+        // Track Partner Application Event
+        document.getElementById('partnerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            gtag('event', 'partner_application', {
+                'restaurant_name': document.getElementById('restName').value,
+                'application_value': 100 // Custom Metric
+            });
+            alert('Analytics tracked your application!');
+        });
+    </script>
+</body>
+
+</html>
