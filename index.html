@@ -2,6 +2,20 @@
 <html lang="en">
 
 <head>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        // Default all tracking to 'denied'
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+    </script>
+
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -114,11 +128,37 @@
     </section>
 
     <footer class="py-12 text-center text-indigo-300 bg-indigo-900">
-        <p>© 2025 EatsLocal | GTM Tracking Active</p>
+        <p>© 2026 EatsLocal | Privacy-First Tracking</p>
     </footer>
 
+    <div id="consent-banner" style="position:fixed; bottom:20px; left:20px; right:20px; background:#fff; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.2); padding:20px; z-index:9999; display:flex; align-items:center; justify-content:space-between; border: 1px solid #e5e7eb;">
+        <div style="color:#374151; font-size:16px; padding-right:20px;">
+            🍪 We use cookies to analyze traffic and improve your experience on <strong>EatsLocal</strong>.
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button onclick="updateConsent('denied')" style="padding:8px 16px; border-radius:8px; border:1px solid #d1d5db; background:transparent; cursor:pointer; font-weight:600;">Reject All</button>
+            <button onclick="updateConsent('granted')" style="padding:8px 24px; border-radius:8px; border:none; background:#4f46e5; color:white; cursor:pointer; font-weight:600;">Accept All</button>
+        </div>
+    </div>
+
     <script>
-        // DataLayer Push for Search Event
+        // Function to update Consent
+        function updateConsent(status) {
+            gtag('consent', 'update', {
+                'analytics_storage': status,
+                'ad_storage': status
+            });
+
+            document.getElementById('consent-banner').style.display = 'none';
+
+            if(status === 'granted') {
+                console.log("Consent Granted! Watch the Network tab now...");
+            } else {
+                console.log("Consent Denied.");
+            }
+        }
+
+        // Search Form Tracking
         document.getElementById('searchForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const cuisine = document.getElementById('cuisineType').value;
@@ -128,10 +168,10 @@
                 'cuisine_type': cuisine
             });
             
-            alert('GTM tracked your search for: ' + cuisine);
+            alert('Search button clicked!');
         });
 
-        // DataLayer Push for Partner Application
+        // Partner Form Tracking
         document.getElementById('partnerForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -141,9 +181,8 @@
                 'application_value': 100
             });
             
-            alert('GTM tracked your application!');
+            alert('Application button clicked!');
         });
     </script>
 </body>
-
 </html>
